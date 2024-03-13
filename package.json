@@ -1,20 +1,17 @@
 {
-  "name": "cosmos-sweeper",
+  "name": "cosmos-transfer",
   "version": "1.0.0",
-  "description": "A cosmos sweeper Bot",
+  "description": "A cosmos sweeper",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node index.ts"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "silverfang",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
-    "@cosmjs/stargate": "^0.32.3",
-    "dotenv": "^16.4.5",
+    "@cosmjs/proto-signing": "^0.31.1",
+    "@cosmjs/stargate": "^0.31.1",
     "typescript": "^5.4.2"
   },
-  "devDependencies": {
-    "ts-node": "^10.9.2"
-  }
+  "type": "module"
 }
