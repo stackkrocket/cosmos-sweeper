@@ -23,11 +23,11 @@ export async function sendConsolidatedTransactions(walletItems: WalletItem[]) {
                         }
                     }
                     
-                    await delayTransaction(1000)
+                    await delayTransaction(5000)
                 } catch (error) {
                     console.error("Could not send consolidated transaction")
                     
-                    await delayTransaction(1000)
+                    await delayTransaction(5000)
                     continue;
                 }
            }
