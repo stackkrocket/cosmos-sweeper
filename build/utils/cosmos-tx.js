@@ -20,11 +20,11 @@ export async function sendConsolidatedTransactions(walletItems) {
                     console.log(`${getCurrentTime()} ${sender}: balance 0 $UATOM.`);
                 }
             }
-            await delayTransaction(5000);
+            await delayTransaction(1000);
         }
         catch (error) {
             console.error("Could not send consolidated transaction");
-            await delayTransaction(5000);
+            await delayTransaction(1000);
             continue;
         }
     }
