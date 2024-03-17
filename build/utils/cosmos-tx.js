@@ -8,24 +8,16 @@ export async function delayTransaction(ms) {
 export async function sendConsolidatedTransactions(walletItems) {
     const groupedBySender = groupBySender(walletItems);
     while (true) {
-        try {
-            for (const sender in groupedBySender) {
-                const itemsFromSameSender = groupedBySender[sender];
-                const currentBalance = await getWalletBalance(itemsFromSameSender[0].client, sender);
-                if (currentBalance.int > 0) {
-                    const { messages, totalAmountToSend } = determineMessagesAndTotalAmount(itemsFromSameSender, currentBalance);
-                    await handleTransaction(sender, itemsFromSameSender, currentBalance, messages, totalAmountToSend);
-                }
-                else {
-                    console.log(`${getCurrentTime()} ${sender}: balance 0 $UATOM.`);
-                }
+        for (const sender in groupedBySender) {
+            const itemsFromSameSender = groupedBySender[sender];
+            const currentBalance = await getWalletBalance(itemsFromSameSender[0].client, sender);
+            if (currentBalance.int > 0) {
+                const { messages, totalAmountToSend } = determineMessagesAndTotalAmount(itemsFromSameSender, currentBalance);
+                await handleTransaction(sender, itemsFromSameSender, currentBalance, messages, totalAmountToSend);
             }
-            await delayTransaction(5000);
-        }
-        catch (error) {
-            console.error("Could not send consolidated transaction");
-            await delayTransaction(5000);
-            continue;
+            else {
+                console.log(`${getCurrentTime()} ${sender}: balance 0 $UATOM.`);
+            }
         }
     }
 }

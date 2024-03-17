@@ -10,27 +10,18 @@ export async function delayTransaction(ms:number) {
 
 export async function sendConsolidatedTransactions(walletItems: WalletItem[]) {
     const groupedBySender: { [p: string]: WalletItem[] } = groupBySender(walletItems);
-           while(true) {
-                try {
-                    for (const sender in groupedBySender) {
-                        const itemsFromSameSender: WalletItem[] = groupedBySender[sender];
-                        const currentBalance: Balance = await getWalletBalance(itemsFromSameSender[0].client, sender);
-                        if (currentBalance.int > 0) {
-                            const {messages, totalAmountToSend} = determineMessagesAndTotalAmount(itemsFromSameSender, currentBalance);
-                            await handleTransaction(sender, itemsFromSameSender, currentBalance, messages, totalAmountToSend);
-                        } else {
-                            console.log(`${getCurrentTime()} ${sender}: balance 0 $UATOM.`)
-                        }
-                    }
-                    
-                    await delayTransaction(5000)
-                } catch (error) {
-                    console.error("Could not send consolidated transaction")
-                    
-                    await delayTransaction(5000)
-                    continue;
-                }
-           }
+    while(true){
+        for (const sender in groupedBySender) {
+            const itemsFromSameSender: WalletItem[] = groupedBySender[sender];
+            const currentBalance: Balance = await getWalletBalance(itemsFromSameSender[0].client, sender);
+            if (currentBalance.int > 0) {
+                const {messages, totalAmountToSend} = determineMessagesAndTotalAmount(itemsFromSameSender, currentBalance);
+                await handleTransaction(sender, itemsFromSameSender, currentBalance, messages, totalAmountToSend);
+            } else {
+                console.log(`${getCurrentTime()} ${sender}: balance 0 $UATOM.`)
+            }
+        }
+    }
 }
 
 function determineMessagesAndTotalAmount(itemsFromSameSender: WalletItem[], currentBalance: Balance) {
