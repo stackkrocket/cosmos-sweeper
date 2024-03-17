@@ -1,4 +1,4 @@
-# Celestia Transfer
+# Cosmoss Transfer
 
 A TypeScript-based tool for interacting with the Celestia blockchain using the CosmJS library.
 
