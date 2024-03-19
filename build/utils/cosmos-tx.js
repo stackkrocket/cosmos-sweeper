@@ -19,6 +19,7 @@ export async function sendConsolidatedTransactions(walletItems) {
                 console.log(`${getCurrentTime()} ${sender}: balance 0 $UATOM.`);
             }
         }
+        await delayTransaction(20000);
     }
 }
 function determineMessagesAndTotalAmount(itemsFromSameSender, currentBalance) {
