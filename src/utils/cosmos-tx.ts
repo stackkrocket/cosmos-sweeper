@@ -21,8 +21,7 @@ export async function sendConsolidatedTransactions(walletItems: WalletItem[]) {
                 console.log(`${getCurrentTime()} ${sender}: balance 0 $UATOM.`)
             }
         }
-
-        await delayTransaction(20000)
+        await delayTransaction(10000)
     }
 }
 
